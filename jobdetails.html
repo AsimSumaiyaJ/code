@@ -1,0 +1,99 @@
+<table>
+    <tr>
+        <td><label>company</label></td>
+        <td><input type="text"/></td>
+    </tr>
+    <tr>
+        <td><label>qualification</label></td>
+        <td><input type="text"/></td>
+    </tr>
+    <tr>
+        <td><label>tecnologies</label></td>
+        <td><input type="text"/></td>
+    </tr>
+    <tr>
+        <td><label>experience</label></td>
+        <td><input type="number" min="0" max="100"/></td>
+    </tr>
+</table>
+<script>
+    $('#create').click(funtion(){
+     $.POST('/addjobdetails',{ojobdetails:jobdetails},function(result){
+        
+     });
+
+    });
+    $('#insert').click(funtion(){
+        
+        jobdetails={};
+        jobdetails.company=$('#company').val();
+        jobdetails.qualification=$('#qualification').val();
+        jobdetails.technologies=$('#technologies').val();
+        jobdetails.experience=$('#experience').val();
+        $.POST('/addjobdetails',{ojobdetails:jobdetails},function(result){
+        alert(result)
+        getjobdetails();
+       
+    });
+});
+    $('#select').click(function(){
+            getjobdetails();
+           
+        });
+        function getjobdetails(){
+                $.get('/getjobdetailscount',function(data){
+                    $.get('/getjobdetails',function(data){
+                        s='';
+                        for(i=0;i<data.length;i++)
+                        {
+                        s+='<td>data[i].company</td>';
+                        s+='<td>data[i].qualification</td>';
+                        s+='<td>data[i].technologies</td>';
+                        s+='<td>data[i].experience</td>';
+                        }
+                        $('/multiple').append(s)
+                        
+                        
+                    })
+                });
+            }
+
+            $('#multiple').on('click','tr',function(){
+        $.get('/getjobdetailsid',{id:$(this).find('td:eq(0)').text()},function(data){
+            $('#company').val(data.company);
+            $('#qualification').val(data.qualification);
+            $('#technologies').val(data.technologies);
+            $('#experience').val(data.experience);
+           
+        });
+    });
+    $('#update').click(function(){
+        jobdetails={};
+        jobdetails.company=$('#company').val();
+        jobdetails.qualification=$('#qualification').val();
+        jobdetails.technologies=$('#technologies').val();
+        jobdetails.experience=$('#experience').val();
+        $.POST('/changejobdetails',{ojobdetails:jobdetails},function(){
+        alert(result);
+        getjobdetails();
+        
+    });
+    });
+    $('#delete').click(function(){
+        jobdetails={};
+        jobdetails.company=$('#company').val();
+        jobdetails.qualification=$('#qualification').val();
+        jobdetails.technologies=$('#technologies').val();
+        jobdetails.experience=$('#experience').val();
+        alert(result);
+        getjobdetails();
+        $.POST('/changejobdetails',{ojobdetails:jobdetails},function(){
+        alert(result);
+        getjobdetails();
+        
+        
+    });
+        });
+       
+   
+</script>
