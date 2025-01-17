@@ -2,7 +2,7 @@ import json
 import sqlite3
 from flask import Flask,render_template, request, url_for,jsonify
 app=Flask(__name__)
-@app.route('flash')
+@app.route('/')
 def index():
     return render_template('education.html')
 @app.route('/createducation')
@@ -13,29 +13,30 @@ def createeducation():
         cu=cn.cursor
         cn.execute('create table education(course char(8),school/college char(6),board/university char(17),startdate char(10),enddate char(10),marks int,completed char(1))')
         cn.close()
-        return jsonify('')@app.route('/addpersonal/.methods=['POST','GET']')
+        return jsonify('')
+@app.route('/addpersonal/',methods=['POST','GET'])
 def addeducation():
     if request.method=='POST':
         opersonal=request.get_json()
         cn=sqlite3.connect('test.db')
         cu=cn.cursor
         course=opersonal['course']
-        school/college=opersonal['school/college']
-        board/university=opersonal['board/university']
+        schoolcollege=opersonal['schoolcollege']
+        boarduniversity=opersonal['boarduniversity']
         startdate=opersonal['startdate']
         enddate=opersonal['enddate']
         marks=opersonal['marks']
         completed=opersonal['completed']
-        cn.execute('insert into education(course,school/college,board/university,startdate,enddate,marks,completed)values(?,?,?,?,?,?,?)',(course,school/college,board/university,startdate,enddate,marks,completed))
+        cn.execute('insert into education(course,schoolcollege,boarduniversity,startdate,enddate,marks,completed)values(%s,%s,%s,%s,%s,%s,%s)',(course,schoolcollege,boarduniversity,startdate,enddate,marks,completed))
         cn.commit()
         cn.close()
         return jsonify('')
-@app.route('')
+@app.route('/geteducation')
 def geteducation():
     if request.method=='GET':
         cn=sqlite3.connect('test.db')
         cu=cn.cursor
-        cn.execute('select course,school/college,board/university,startdate,enddate,marks,completed from education')
+        cn.execute('select course,schoolcollege,boarduniversity,startdate,enddate,marks,completed from education')
         lpersonal=cu.fetchall()
         cn.close()
         return jsonify('')
@@ -54,7 +55,7 @@ def geteducationid():
         id=request.get_json()
         cn= cn=sqlite3.connect('test.db')
         cu=cn.cursor
-        cn.execute('select course,school/college,board/university,startdate,enddate,marks,completed from education' where id=?)
+        cn.execute('select course,schoolcollege,boarduniversity,startdate,enddate,marks,completed from education' where id=?)
         opersonal=cu.fetchall()
         cn.close()
         return jsonify('opersonal')
@@ -64,7 +65,7 @@ def changeeducation():
         education=request.get_json()
         cn=sqlite3.connect('test.db')
         cu=cn.cursor
-        cn.execute('update education set course=?,school/college=?,board/university=?,startdate=?,enddate=?,marks=?,completed=? where id=?',(course,school/college,board/university,startdate,enddate,marks,completed))
+        cn.execute('update education set course=?,school/college=?,board/university=?,startdate=?,enddate=?,marks=?,completed=? ',(course,school/college,board/university,startdate,enddate,marks,completed))
         cn.commit()
         cn.close()
         return jsonify('')
@@ -78,4 +79,4 @@ def removeeducation():
     cn.close()
     return jsonify('')
 if __name__=='__main__':
-app.run=('True')
+    app.run=('True')
