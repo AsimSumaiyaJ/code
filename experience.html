@@ -1,0 +1,96 @@
+<table>
+    <tr>
+        <td><label>company</label></td>
+        <td><input type="text"/></td>
+    </tr>
+    <tr>
+        <td><label>technologies</label></td>
+        <td><input type="text"/></td>
+    </tr>
+    <tr>
+        <td><label>start date</label></td>
+        <td><input type="date"/></td>
+    </tr>
+    <tr>
+        <td><label>end date</label></td>
+        <td><input type="date"/></td>
+    </tr>
+</table>
+<script>
+    $('#create').click(funtion(){
+     $.POST('/addexperience',{oexperience:experience},function(result){
+        
+     });
+
+    });
+    $('#insert').click(funtion(){
+        
+        experience={};
+        experience.company=$('#company').val();
+        experience.technologies=$('#technologies').val();
+        experience.startdate=$('#startdate').val();
+        experience.enddate=$('#enddate').val();
+        $.POST('/addexperience',{oexperience:experience},function(result){
+        alert(result)
+        getexperience();
+       
+    });
+});
+    $('#select').click(function(){
+            getexperience();
+           
+        });
+        function getexperience(){
+                $.get('/getexperiencecount',function(data){
+                    $.get('/getexperience',function(data){
+                        s='';
+                        for(i=0;i<data.length;i++)
+                        {
+                        s+='<td>data[i].company</td>';
+                        s+='<td>data[i].technologies</td>';
+                        s+='<td>data[i].startdate</td>';
+                        s+='<td>data[i].enddate</td>';
+                       }
+                        $('/multiple').append(s)
+                        
+                        
+                    })
+                });
+            }
+            $('#multiple').on('click','tr',function(){
+        $.get('/getexperienceid',{id:$(this).find('td:eq(0)').text()},function(data){
+            $('#company').val(data.company);
+            $('#technologies').val(data.technologies);
+            $('#startdate').val(data.startdate);
+            $('#enddate').val(data.enddate);
+          });
+    });
+    $('#update').click(function(){
+        experience={};
+        experience.company=$('#company').val();
+        experience.technologies=$('#technologies').val();
+        experience.startdate=$('#startdate').val();
+        experience.enddate=$('#enddate').val();
+        $.POST('/changeexperience',{oexperience:experience},function(result){
+        alert(result)
+        getexperience();
+        
+    });
+    });
+    $('#delete').click(function(){
+        experience={};
+        experience.company=$('#company').val();
+        experience.technologies=$('#technologies').val();
+        experience.startdate=$('#startdate').val();
+        experience.enddate=$('#enddate').val();   
+        alert(result);
+        getexperience();
+        $.POST('/removeexperience',{oexperience:experience},function(){
+        alert(result);
+        getpersonal();
+        
+    });
+        });
+       
+   
+</script>
