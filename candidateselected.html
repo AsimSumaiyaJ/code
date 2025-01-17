@@ -1,0 +1,70 @@
+<table>
+    <tr>
+        <td><label>commission</label></td>
+        <td><input type="number" min="0" max="100000"/></td>
+    </tr>
+</table>
+<script>
+    $('#create').click(funtion(){
+     $.POST('/addcandidateselected',{ocandidateselected:candidateselected},function(result){
+        
+     });
+
+    });
+    $('#insert').click(funtion(){
+        
+        candidateselected={};
+        candidateselected.commission=$('#commission').val();
+        $.POST('/candidateselected',{ocandidateselected:candidateselected},function(result){
+        alert(result)
+        getcandidateselected();
+       
+    });
+});
+    $('#select').click(function(){
+            getcandidateselected();
+           
+        });
+        function getcandidateselected(){
+                $.get('/getcandidateselectedcount',function(data){
+                    $.get('/getcandidateselected',function(data){
+                        s='';
+                        for(i=0;i<data.length;i++)
+                        {
+                        s+='<td>data[i].commission</td>';
+                        }
+                        $('/multiple').append(s)
+                        
+                        
+                    })
+                });
+            }
+            $('#multiple').on('click','tr',function(){
+        $.get('/getcandidateselectedid',{id:$(this).find('td:eq(0)').text()},function(data){
+            $('#commission').val(data.commission);
+          });
+    });
+    $('#update').click(function(){
+        candidateselected={};
+        candidateselected.commission$('#commission').val();
+        $.POST('/changecandidateselected',{ocandidateselected:candidateselected},function(){
+        alert(result);
+        getcandidateselected();
+        
+    });
+    });
+    $('#delete').click(function(){
+            candidateselected={};
+            candidateselected.commission$('#commission').val();
+            alert(result);
+        getcandidateselected();
+        $.POST('/removecandidateselected',{ocandidateselected:candidateselected},function(){
+        alert(result);
+        getcandidateselected();
+        
+    });
+        });
+       
+   
+</script>
+
