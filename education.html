@@ -1,0 +1,125 @@
+<table>
+    <tr>
+        <td><label>course</label></td>
+        <td><input type="text"/></td>
+    </tr>
+    <tr>
+        <td><label>school/college</label></td>
+        <td><input type="text"/></td>
+       
+    </tr>
+    <tr>
+        <td><label>board/university</label></td>
+        <td><input type="text"/></td>
+    </tr>
+    <tr>
+        <td><label>start date</label></td>
+        <td><input type="date"/></td>
+    </tr>
+    <tr>
+        <td><label>end date</label></td>
+        <td><input type="date"/></td>
+    </tr>
+    <tr>
+        <td><label>marks</label></td>
+        <td><input type="number" min="0" max="100"/></td>
+    </tr>
+    <tr>
+        <td><label>completed</label></td>
+        <td><input type="checkbox"/></td>
+    </tr>
+</table>
+<script>
+    $('#create').click(funtion(){
+     $.POST('/addeducation',{opersonal:educatipn},function(result){
+        
+     });
+
+    });
+    $('#insert').click(funtion(){
+        
+        education={};
+        education.course=$('#course').val();
+        education.school/college=$('#school/college').val();
+        education.board/university=$('#board/university').val();
+        education.startdate=$('#startdate').val();
+        education.enddate=$('# enddate').val();
+        education.marks=$('#marks').val();
+        education.completed=$('#completed').val();
+        $.POST('/addpersonal',{opersonal:personal},function(result){
+        alert(result)
+        geteducation();
+       
+    });
+});
+    $('#select').click(function(){
+            geteducation();
+           
+        });
+        function geteducation(){
+                $.get('/geteducationcount',function(data){
+                    $.get('/geteducation',function(data){
+                        s='';
+                        for(i=0;i<data.length;i++)
+                        {
+                        s+='<td>data[i].course</td>';
+                        s+='<td>data[i].school/college</td>';
+                        s+='<td>data[i].board/university</td>';
+                        s+='<td>data[i].startdate</td>';
+                        s+='<td>data[i].enddate</td>';
+                        s+='<td>data[i].marks</td>';
+                        s+='<td>data[i].completed</td>';
+                        }
+                        $('/multiple').append(s)
+                        
+                        
+                    })
+                });
+            }
+    $('#multiple').on('click','tr',function(){
+        $.get('/geteducationid',{id:$(this).find('td:eq(0)').text()},function(data){
+            $('#course').val(date.course);
+            $('#school/college').val(data.school/college);
+            $('#board/university').val(data.board/university);
+            $('#startdate').val(data.startdate);
+            $('#enddate').val(data.enddate);
+            $('#marks').val(data.marks)
+            $('#completed').val(data.completed);
+        });
+            
+    });
+    $('#update').click(function(){
+        education={};
+        education.course$('#course').val();
+        education.school/college$('#school/college').val();
+        education.board/university$('#board/university').val();
+        education.startdate$('#startdate').val();
+        education.enddate$('#enddate').val();
+        education.marks$('#marks').val();
+        education.completed$('#completed').val();
+        $.POST('/changeeducation',{oeducation:education},function(){
+        alert(result);
+        geteducation();
+        
+    });
+    });
+    $('#delete').click(function(){
+            education={};
+            education.course$('#course').val();
+            education.school/college$('#school/college').val();
+            education.board/university$('#board/university').val();
+            education.startdate$('#startdate').val();
+            education.enddate$('#enddate').val();
+            education.marks$('#marks').val();
+            education.completed$('#completed').val();
+        alert(result);
+        geteducation();
+        $.POST('/removeducation',{oeducation:education},function(){
+        alert(result);
+        geteducation();
+        
+    });
+        });
+       
+   
+</script>
