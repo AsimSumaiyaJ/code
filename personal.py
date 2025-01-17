@@ -1,4 +1,4 @@
-"""import json 
+import json 
 import sqlite3
 from flask import Flask,render_template, request, url_for,jsonify
 app=Flask(__name__)
@@ -13,8 +13,8 @@ def createpersonal():
         cu=cn.cursor
         cn.execute('create table personal(id int not null,name char(17),dateofbirth char(10),gender char(1),phonenumber char(10),emailaddress char(31),address char(80))')
         cn.close()
-        return jsonify('')"""
-@app.route('/addpersonal/.methods=['POST','GET']')
+        return jsonify('')
+@app.route('/addpersonal/',methods=['POST','GET'])
 def addpersonal():
     #if request.method=='POST':
         opersonal=request.get_json()
@@ -26,11 +26,11 @@ def addpersonal():
         phonenumber=opersonal['phonenumber']
         emailaddress=opersonal['emailaddress']
         address=opersonal['address']
-        cn.execute('insert into personal(name,dateofbirth,gender,phonenumber,emailaddress,address)values(?,?,?,?,?,?'),(name,dateofbirth,gender,phonenumber,emailaddress,address))
+        cn.execute('insert into personal(name,dateofbirth,gender,phonenumber,emailaddress,address)values(?,?,?,?,?,?)',(name,dateofbirth,gender,phonenumber,emailaddress,address))
         cn.commit()
         cn.close()
         return jsonify('')
-"""@app.route('')
+@app.route('/')
 def getpersonal():
     if request.method=='GET':
         cn=sqlite3.connect('test.db')
@@ -76,6 +76,6 @@ def removepersonal():
     cn.execute('delete from personal where id=?',(name,dateofbirth,gender,phonenumber,emailaddress,address))
     cn.commit()
     cn.close()
-    return jsonify('') """ 
+    return jsonify('') 
 if __name__=='__main__':
   app.run=('True')
