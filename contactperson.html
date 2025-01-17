@@ -1,0 +1,90 @@
+<table>
+    <tr>
+        <td><label>name</label></td>
+        <td><input type="text"/></td>
+    </tr>
+    <tr>
+        <td><label>phone number</label></td>
+        <td><input type="number" min="0" max="999999999"/></td>
+    </tr>
+    <tr>
+        <td><label>email address</label></td>
+        <td><input type="email"/></td>
+    </tr>
+</table>
+<script>
+    $('#create').click(funtion(){
+     $.POST('/addcontactperson',{ocontactperson:contactperson},function(result){
+        
+     });
+
+    });
+    $('#insert').click(funtion(){
+        
+        contactperson={};
+        personal.name=$('#name').val();
+        personal.phonenumber=$('#phonenumber').val();
+        personal.emailaddress=$('#emailaddress').val();
+        $.POST('/addcontactperson',{ocontactperson:contactperson},function(result){
+        alert(result)
+        getcontactperson();
+       
+    });
+});
+    $('#select').click(function(){
+            getcontactperson();
+           
+        });
+        function getcontactperson(){
+                $.get('/getcontactpersoncount',function(data){
+                    $.get('/getcontactperson',function(data){
+                        s='';
+                        for(i=0;i<data.length;i++)
+                        {
+                        s+='<td>data[i].name</td>';
+                        s+='<td>data[i].phonenumber</td>';
+                        s+='<td>data[i].emailaddress</td>';
+                     }
+                        $('/multiple').append(s)
+                        
+                        
+                    })
+                });
+            }
+            $('#multiple').on('click','tr',function(){
+        $.get('/getcontactpersonid',{id:$(this).find('td:eq(0)').text()},function(data){
+            $('#name').val(data.name);
+            $('#phonenumber').val(data.phonenumber);
+            $('#emailaddress').val(data.emailaddress)
+        });
+    });
+    $('#update').click(function(){
+        contactperson={};
+        personal.name=$('#name').val();
+        personal.phonenumber=$('#phonenumber').val();
+        personal.emailaddress=$('#emailaddress').val();
+        $.POST('/changecontactperson',{ocontactperson:contactperson},function(){
+        alert(result);
+        getcontactperson();
+        
+    });
+    });
+    $('#delete').click(function(){
+        contactperson={};
+        personal.name=$('#name').val();
+        personal.phonenumber=$('#phonenumber').val();
+        personal.emailaddress=$('#emailaddress').val();
+        alert(result);
+        getcontactperson();
+        $.POST('/removecontactperson',{ocontactperson:contactperson},function(){
+        alert(result);
+        getcontactperson();
+        
+    });
+        });
+       
+   
+</script>
+
+
+    
