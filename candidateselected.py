@@ -59,7 +59,7 @@ def changecandidateselected():
         personal=request.get_json()
         cn=sqlite3.connect('test.db')
         cu=cn.cursor
-        cn.execute('update candidateselected set commission=? where id=?',(commissoin))
+        cn.execute('update candidateselected set commission=? where id=?',(commission))
         cn.commit()
         cn.close()
         return jsonify('')
