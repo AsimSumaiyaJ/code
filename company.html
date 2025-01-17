@@ -1,0 +1,89 @@
+<table>
+    <tr>
+        <td><label>name</label></td>
+        <td><input type="text"/></td>
+    </tr>
+    <tr>
+        <td><label>address</label></td>
+        <td><textarea cols="19" rows="4"></textarea></td>
+    </tr>
+    <tr>
+        <td><label>website</label></td>
+        <td><input type="url"/></td>
+    </tr>
+</table>
+<script>
+    $('#create').click(funtion(){
+     $.POST('/addcompany',{ocompany:company},function(result){
+        
+     });
+
+    });
+    $('#insert').click(funtion(){
+        
+        company={};
+        company.name=$('#name').val();
+        company.phonenumber=$('#phonenumber').val();
+        company.emailaddress=$('#emailaddress').val();
+        $.POST('/addcompany',{opersonal:company},function(result){
+        alert(result)
+        getcompany();
+       
+    });
+});
+    $('#select').click(function(){
+            getcompany();
+           
+        });
+        function getcompany(){
+                $.get('/getcompanycount',function(data){
+                    $.get('/getcompany',function(data){
+                        s='';
+                        for(i=0;i<data.length;i++)
+                        {
+                        s+='<td>data[i].name</td>';
+                        s+='<td>data[i].phonenumber</td>';
+                        s+='<td>data[i].emailaddress</td>';
+                        }
+                        $('/multiple').append(s)
+                        
+                        
+                    })
+                });
+            }
+ $('#multiple').on('click','tr',function(){
+        $.get('/getcompanyid',{id:$(this).find('td:eq(0)').text()},function(data){
+            $('#name').val(data.name);
+            $('#phonenumber').val(data.phonenumber);
+            $('#emailaddress').val(data.emailaddress)
+            });
+    });
+    $('#update').click(function(){
+        company={};
+        company.name=$('#name').val();
+        company.phonenumber=$('#phonenumber').val();
+        company.emailaddress=$('#emailaddress').val();
+        $.POST('/changecompany',{ocompany:company},function(){
+        alert(result);
+        getcompany();
+        
+    });
+    });
+    $('#delete').click(function(){
+        company={};
+        company.name=$('#name').val();
+        company.phonenumber=$('#phonenumber').val();
+        company.emailaddress=$('#emailaddress').val();
+        alert(result);
+        getcompany();
+        $.POST('/removecompany',{ocompany:company},function(){
+        alert(result);
+        getcompany();
+        
+    });
+        });
+       
+   
+</script>
+
+
