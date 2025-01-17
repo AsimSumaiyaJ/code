@@ -1,0 +1,118 @@
+<table>
+ <tr>
+    <td><label>name</label></td>
+    <td><input type="text"/></td>
+ </tr>
+ <tr>
+    <td><label>date of birth</label></td>
+    <td><input type="date"/></td>
+  </tr>
+  <tr>
+    <td><label>gender</label></td>
+    <td><label>male</label><input type="radio" name="gender"/><label>female</label><input type="radio" name="gender"/></td>
+ </tr>
+ <tr>
+    <td><label>phone number</label></td>
+    <td><input type="number" min="0" max="999999999"/></td>
+  </tr>
+  <tr>
+    <td><label>email address</label></td>
+    <td><input type="email"/></td>
+ </tr>
+ <tr>
+    <td><label>address</label></td>
+    <td><textarea cols="19" rows="4"></textarea></td>
+  </tr>
+</table>
+<script>
+    $('#create').click(funtion(){
+     $.POST('/addpersonal',{opersonal:personal},function(result){
+        
+     });
+
+    });
+    $('#insert').click(funtion(){
+        
+        personal={};
+        personal.name=$('#name').val();
+        personal.dateofbirth=$('#dateofbirth').val();
+        personal.gender=$('#gender').val();
+        personal.phonenumber=$('#phonenumber').val();
+        personal.emailaddress=$('#emailaddress').val();
+        personal.address=$('#address').val();
+        $.POST('/addpersonal',{opersonal:personal},function(result){
+        alert(result)
+        getpersonal();
+       
+    });
+
+    });
+    $('#select').click(function(){
+            getpersonal();
+           
+        });
+        function getpersonal(){
+                $.get('/getpersonalcount',function(data){
+                    $.get('/getpersonal',function(data){
+                        s='';
+                        for(i=0;i<data.length;i++)
+                        {
+                        s+='<td>data[i].name</td>';
+                        s+='<td>data[i].dateofbirth</td>';
+                        s+='<td>data[i].gender</td>';
+                        s+='<td>data[i].phonenumber</td>';
+                        s+='<td>data[i].emailaddress</td>';
+                        s+='<td>data[i].address</td>';
+                        }
+                        $('/multiple').append(s)
+                        
+                        
+                    })
+                });
+            }
+    $('#multiple').on('click','tr',function(){
+        $.get('/getpersonalid',{id:$(this).find('td:eq(0)').text()},function(data){
+            $('#name').val(data.name);
+            $('#dateofbirth').val(data.dateofbirth);
+            $('#gender').val(data.gender);
+            $('#phonenumber').val(data.phonenumber);
+            $('#emailaddress').val(data.emailaddress)
+            $('#address').val(data.address);
+        });
+    });
+    
+   
+    $('#update').click(function(){
+        personal={};
+        personal.name$('#name').val();
+        personal.dateofbirth$('#dateofbirth').val();
+        personal.gender$('#gender').val();
+        personal.phonenumber$('#phonenumber').val();
+        personal.emailaddress$('#emailaddress').val();
+        personal.address$('#address').val();
+        $.POST('/changepersonal',{opersonal:personal},function(){
+        alert(result);
+        getpersonal();
+        
+    });
+    });
+    $('#delete').click(function(){
+            personal={};
+            personal.name$('#name').val();
+            personal.dateofbirth$('#dateofbirth').val();
+            personal.gender$('#gender').val();
+            personal.phonenumber$('#phonenumber').val();
+            personal.emailaddress$('#emailaddress').val();
+            personal.address$('#address').val();
+        alert(result);
+        getpersonal();
+        $.POST('/removepersonal',{opersonal:personal},function(){
+        alert(result);
+        getpersonal();
+        
+    });
+        });
+       
+   
+</script>
+
