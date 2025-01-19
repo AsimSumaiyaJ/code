@@ -1,0 +1,94 @@
+<table>
+    <tr>
+       <td><label>name</label></td>
+       <td><input type="text"/></td>
+    </tr>
+    <tr>
+       <td><label>copy</label></td>
+       <td><input type="number"/></td>
+     </tr>
+</table>
+<style>
+    #single{
+        th,td{
+            width:50%;
+            border:1px solid;
+        }
+        #button
+        {
+            width:99%;
+            border-collapse: collapse;
+        }
+        #button td {
+            width:33%;
+            border:1px solid;
+
+        }
+        #movie multiple{
+            width:99%
+            border-collapse-collapse;
+        }
+        #movie multiple td{
+            width:14%;
+            border:1px solid;
+
+        }
+
+
+        }
+    
+</style>
+<script>
+    $('#create').click(funtion(){
+     $.POST('/addmovie',{omovie:movie},function(result){
+        
+     });
+
+    });
+    $('#insert').click(funtion(){
+        
+        movie={};
+        movie.name=$('#name').val();
+        movie.copy=$('#copy').val();
+        $.POST('/addmovie',{omovie:movie},function(result){
+        alert(result)
+        getmovie();
+       
+    });
+
+    });
+    $('#select').click(function(){
+            getmovie();
+           
+        });
+        function getmovie(){
+                $.get('/getmoviecount',function(data){
+                    $.get('/getmovie',function(data){
+                        s='';
+                        for(i=0;i<data.length;i++)
+                        {
+                        s+='<td>data[i].name</td>';
+                        s+='<td>data[i].copy</td>';
+                        }
+                        $('#multiple').append(s)
+                        
+                        
+                    })
+                });
+            }
+        $('#multiple').on('click','tr',function(){
+        $.get('/getmovieid',{id:$(this).find('td:eq(0)').text()},function(data){
+            $('#name').val(data.name);
+            $('#copy').val(data.copy);
+        });
+    });
+    $('#update').click(function(){
+        movie={};
+        movie.name=$('#name').val();
+        movie.copy=$('#copy').val();
+        $.POST('/changemovie',{omovie:movie},function(){
+        alert(result);
+        getmovie();
+        
+    });
+    });

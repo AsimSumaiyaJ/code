@@ -24,6 +24,36 @@
     <td><textarea cols="19" rows="4"></textarea></td>
   </tr>
 </table>
+<style>
+    #single{
+        th,td{
+            width:50%;
+            border:1px solid;
+        }
+        #button
+        {
+            width:99%;
+            border-collapse: collapse;
+        }
+        #button text-decoration: {
+            width:33%;
+            border:1px solid;
+
+        }
+        #personal multiple{
+            width:99%
+            border-collapse-collapse;
+        }
+        #personal multiple td{
+            width:14%;
+            border:1px solid;
+
+        }
+
+
+        }
+    }
+</style>
 <script>
     $('#create').click(funtion(){
      $.POST('/addpersonal',{opersonal:personal},function(result){
@@ -64,7 +94,7 @@
                         s+='<td>data[i].emailaddress</td>';
                         s+='<td>data[i].address</td>';
                         }
-                        $('/multiple').append(s)
+                        $('#multiple').append(s)
                         
                         
                     })
@@ -84,12 +114,12 @@
    
     $('#update').click(function(){
         personal={};
-        personal.name$('#name').val();
-        personal.dateofbirth$('#dateofbirth').val();
-        personal.gender$('#gender').val();
-        personal.phonenumber$('#phonenumber').val();
-        personal.emailaddress$('#emailaddress').val();
-        personal.address$('#address').val();
+        personal.name=$('#name').val();
+        personal.dateofbirth=$('#dateofbirth').val();
+        personal.gender=$('#gender').val();
+        personal.phonenumber=$('#phonenumber').val();
+        personal.emailaddress=$('#emailaddress').val();
+        personal.address=$('#address').val();
         $.POST('/changepersonal',{opersonal:personal},function(){
         alert(result);
         getpersonal();
@@ -98,12 +128,12 @@
     });
     $('#delete').click(function(){
             personal={};
-            personal.name$('#name').val();
-            personal.dateofbirth$('#dateofbirth').val();
-            personal.gender$('#gender').val();
-            personal.phonenumber$('#phonenumber').val();
-            personal.emailaddress$('#emailaddress').val();
-            personal.address$('#address').val();
+            personal.name=$('#name').val();
+            personal.dateofbirth=$('#dateofbirth').val();
+            personal.gender=$('#gender').val();
+            personal.phonenumber=$('#phonenumber').val();
+            personal.emailaddress=$('#emailaddress').val();
+            personal.address=$('#address').val();
         alert(result);
         getpersonal();
         $.POST('/removepersonal',{opersonal:personal},function(){
@@ -115,4 +145,5 @@
        
    
 </script>
+
 

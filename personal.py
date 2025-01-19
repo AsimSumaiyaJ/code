@@ -1,4 +1,4 @@
-"""import json 
+import json 
 import sqlite3
 from flask import Flask,render_template, request, url_for,jsonify
 app=Flask(__name__)
@@ -13,10 +13,10 @@ def createpersonal():
         cu=cn.cursor
         cn.execute('create table personal(id int not null,name char(17),dateofbirth char(10),gender char(1),phonenumber char(10),emailaddress char(31),address char(80))')
         cn.close()
-        return jsonify('')"""
-@app.route('/addpersonal/.methods=['POST','GET']')
+        return jsonify('')
+@app.route('/addpersonal/',methods=['POST','GET'])
 def addpersonal():
-    #if request.method=='POST':
+    if request.method=='POST':
         opersonal=request.get_json()
         cn=sqlite3.connect('test.db')
         cu=cn.cursor
@@ -30,7 +30,7 @@ def addpersonal():
         cn.commit()
         cn.close()
         return jsonify('')
-"""@app.route('')
+@app.route('')
 def getpersonal():
     if request.method=='GET':
         cn=sqlite3.connect('test.db')
