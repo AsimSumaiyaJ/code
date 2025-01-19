@@ -2,7 +2,7 @@ import json
 import sqlite3
 from flask import Flask,render_template, request, url_for,jsonify
 app=Flask(__name__)
-@app.route('flash')
+@app.route('/')
 def index():
     return render_template('contactperson.html')
 @app.route('/createcontactperson')
@@ -14,7 +14,7 @@ def createcontactperson():
         cn.execute('create table contactperso(name char(17),phonenumber char(10),emailaddress char(31))')
         cn.close()
         return jsonify('')
-@app.route('/addcontactperson/.methods=['POST','GET']')
+@app.route('/addcontactperson/',methods=['POST','GET'])
 def addcontactperson():
     if request.method=='POST':
         opersonal=request.get_json()
@@ -27,7 +27,7 @@ def addcontactperson():
         cn.commit()
         cn.close()
         return jsonify('')
-@app.route('')
+@app.route('/getcontactperson')
 def getcontactperson():
     if request.method=='GET':
         cn=sqlite3.connect('test.db')
@@ -75,4 +75,4 @@ def removecontactperson():
     cn.close()
     return jsonify('')
 if __name__=='__main__':
-app.run=('True')
+     app.run=('True')

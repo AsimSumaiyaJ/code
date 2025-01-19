@@ -26,11 +26,15 @@ def addpersonal():
         phonenumber=opersonal['phonenumber']
         emailaddress=opersonal['emailaddress']
         address=opersonal['address']
-        cn.execute('insert into personal(name,dateofbirth,gender,phonenumber,emailaddress,address)values(?,?,?,?,?,?'),(name,dateofbirth,gender,phonenumber,emailaddress,address))
+        cn.execute('insert into personal(name,dateofbirth,gender,phonenumber,emailaddress,address)values(?,?,?,?,?,?)',(name,dateofbirth,gender,phonenumber,emailaddress,address))
         cn.commit()
         cn.close()
         return jsonify('')
+<<<<<<< HEAD
 @app.route('')
+=======
+@app.route('/')
+>>>>>>> b87531d669134b813ff68ed9f1f78ca7e5e4a199
 def getpersonal():
     if request.method=='GET':
         cn=sqlite3.connect('test.db')
@@ -76,6 +80,6 @@ def removepersonal():
     cn.execute('delete from personal where id=?',(name,dateofbirth,gender,phonenumber,emailaddress,address))
     cn.commit()
     cn.close()
-    return jsonify('') """ 
+    return jsonify('') 
 if __name__=='__main__':
   app.run=('True')

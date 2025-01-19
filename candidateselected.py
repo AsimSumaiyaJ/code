@@ -2,7 +2,7 @@ import json
 import sqlite3
 from flask import Flask,render_template, request, url_for,jsonify
 app=Flask(__name__)
-@app.route('flash')
+@app.route('/')
 def index():
     return render_template('candidateselected.html')
 @app.route('/createcandidateselected')
@@ -14,7 +14,7 @@ def createcandidateselected():
         cn.execute('create table candidateselected(commission int)')
         cn.close()
         return jsonify('')
-@app.route('/addcandidateselected/.methods=['POST','GET']')
+@app.route('/addcandidateselected/',methods=['POST','GET'])
 def addcandidateselected():
     if request.method=='POST':
         opersonal=request.get_json()
@@ -25,7 +25,7 @@ def addcandidateselected():
         cn.commit()
         cn.close()
         return jsonify('')
-@app.route('')
+@app.route('/getcandidateselected')
 def getcandidateselected():
     if request.method=='GET':
         cn=sqlite3.connect('test.db')
@@ -59,7 +59,7 @@ def changecandidateselected():
         personal=request.get_json()
         cn=sqlite3.connect('test.db')
         cu=cn.cursor
-        cn.execute('update candidateselected set commission=? where id=?',(commissoin))
+        cn.execute('update candidateselected set commission=? where id=?',(commission))
         cn.commit()
         cn.close()
         return jsonify('')
@@ -73,4 +73,4 @@ def removecandidateselected():
     cn.close()
     return jsonify('')
 if __name__=='__main__':
-app.run=('True')
+   app.run=('True')
