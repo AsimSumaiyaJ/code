@@ -79,4 +79,4 @@ def removeeducation():
     cn.close()
     return jsonify('')
 if __name__=='__main__':
-    app.run(deburue')
+    app.run(debug=True)
