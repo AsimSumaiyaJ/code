@@ -30,11 +30,7 @@ def addpersonal():
         cn.commit()
         cn.close()
         return jsonify('')
-<<<<<<< HEAD
-@app.route('')
-=======
-@app.route('/')
->>>>>>> b87531d669134b813ff68ed9f1f78ca7e5e4a199
+@app.route('/getpersonal')
 def getpersonal():
     if request.method=='GET':
         cn=sqlite3.connect('test.db')
@@ -82,4 +78,4 @@ def removepersonal():
     cn.close()
     return jsonify('') 
 if __name__=='__main__':
-  app.run=('True')
+   app.run(debug=True)
