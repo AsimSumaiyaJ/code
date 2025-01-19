@@ -4,7 +4,7 @@ from flask import Flask,render_template, request, url_for,jsonify
 app=Flask(__name__)
 @app.route('/')
 def index():
-    return render_template('custome1.html')
+    return render_template('customer1.html')
 @app.route('/createcustomer1')
 def createcustomer1():
     if request.method=='POST':
