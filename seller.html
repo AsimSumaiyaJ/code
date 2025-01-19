@@ -1,0 +1,85 @@
+<table>
+    <tr>
+       <td><label>name</label></td>
+       <td><input type="text"/></td>
+    </tr>
+</table>
+<style>
+    #single{
+        th,td{
+            width:50%;
+            border:1px solid;
+        }
+        #button
+        {
+            width:99%;
+            border-collapse: collapse;
+        }
+        #button td {
+            width:33%;
+            border:1px solid;
+
+        }
+        #seller multiple{
+            width:99%
+            border-collapse-collapse;
+        }
+        #seller multiple td{
+            width:14%;
+            border:1px solid;
+
+        }
+
+
+        }
+    
+</style>
+<script>
+    $('#create').click(funtion(){
+     $.POST('/addseller',{oseller:seller},function(result){
+        
+     });
+
+    });
+    $('#insert').click(funtion(){
+        
+        seller={};
+        seller.name=$('#name').val();
+        $.POST('/addseller',{oseller:seller},function(result){
+        alert(result)
+        getseller();
+       
+    });
+});
+    $('#select').click(function(){
+            getseller();
+           
+        });
+        function getseller(){
+                $.get('/getsellercount',function(data){
+                    $.get('/getseller',function(data){
+                        s='';
+                        for(i=0;i<data.length;i++)
+                        {
+                        s+='<td>data[i].name</td>';
+                        }
+                        $('#multiple').append(s)
+                        
+                        
+                    })
+                });
+            }
+            $('#multiple').on('click','tr',function(){
+        $.get('/getsellersid',{id:$(this).find('td:eq(0)').text()},function(data){
+            $('#name').val(data.name);
+        });
+    });
+    $('#update').click(function(){
+        seller={};
+        seller.name=$('#name').val();
+        $.POST('/changeseller',{oseller:seller},function(){
+        alert(result);
+        getseller();
+        
+    });
+    });

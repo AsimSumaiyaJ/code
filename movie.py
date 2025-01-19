@@ -11,7 +11,7 @@ def createmovie():
         omovie=request.get_json()
         cn=sqlite3.connect('test.db')
         cu=cn.cursor
-        cn.execute('create table rent(moviename char(17),copy int,customerid int,rentdatetime char(10),returndatetime char(10))')
+        cn.execute('create table movie(id int not null,name char(17),copy int)')
         cn.close()
         return jsonify('')
 @app.route('/addmovie/',methods=['POST','GET'])
@@ -53,11 +53,11 @@ def getmovieid():
         cn.execute('select name,copy from movie where id=?',id)
         omovie=cu.fetchall()
         cn.close()
-        return jsonify('opersonal')
+        return jsonify('omovie')
 @app.route('/changemovie',methods=['POST','GET'])
 def changemovie():
     if request.method=='POST':
-        personal=request.get_json()
+        movie=request.get_json()
         cn=sqlite3.connect('test.db')
         cu=cn.cursor
         cn.execute('update movie set name=?,copy=? where id=?',(name,copy))

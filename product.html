@@ -1,0 +1,126 @@
+<table>
+    <tr>
+       <td><label>productid</label></td>
+       <td><input type="number"/></td>
+    </tr>
+    <tr>
+       <td><label>productname</label></td>
+       <td><input type="text"/></td>
+     </tr>
+     <tr>
+        <td><label>costprice</label></td>
+        <td><input type="number"/></td>
+     </tr>
+     <tr>
+        <td><label>sellingprice</label></td>
+        <td><input type="number"/></td>
+      </tr>
+      <tr>
+        <td><label>buyingdatetime</label></td>
+        <td><input type="date"/></td>
+     </tr>
+     <tr>
+        <td><label>sellingdatetime</label></td>
+        <td><input type="date"/></td>
+      </tr>
+</table>
+<style>
+    #single{
+        th,td{
+            width:50%;
+            border:1px solid;
+        }
+        #button
+        {
+            width:99%;
+            border-collapse: collapse;
+        }
+        #button td {
+            width:33%;
+            border:1px solid;
+
+        }
+        #product multiple{
+            width:99%
+            border-collapse-collapse;
+        }
+        #product multiple td{
+            width:14%;
+            border:1px solid;
+
+        }
+
+
+        }
+</style>
+<script>
+    $('#create').click(funtion(){
+     $.POST('/addproduct',{oproduct:product},function(result){
+        
+     });
+
+    });
+    $('#insert').click(funtion(){
+        
+        product={};
+        product.productid=$('#productid').val();
+        product.productname=$('#productname').val();
+        product.costprice=$('#costprice').val();
+        product.sellingprice=$('#sellingprice').val();
+        product.buyingdatetime=$('#buyingdatetime').val();
+        product.sellingdatetime=$('#sellingdatetime').val();
+        $.POST('/addproduct',{oproduct:product},function(result){
+        alert(result)
+        getproduct();
+       
+    });
+
+    });
+    $('#select').click(function(){
+            getproduct();
+           
+        });
+        function getproduct(){
+                $.get('/getproductcount',function(data){
+                    $.get('/getproduct',function(data){
+                        s='';
+                        for(i=0;i<data.length;i++)
+                        {
+                        s+='<td>data[i].productid</td>';
+                        s+='<td>data[i].productname</td>';
+                        s+='<td>data[i].costprice</td>';
+                        s+='<td>data[i].sellingprice</td>';
+                        s+='<td>data[i].buyingdatetime</td>';
+                        s+='<td>data[i].sellingdatetime</td>';
+                        }
+                        $('#multiple').append(s)
+                        
+                        
+                    })
+                });
+            }
+            
+            $('#multiple').on('click','tr',function(){
+        $.get('/getproductid',{id:$(this).find('td:eq(0)').text()},function(data){
+            $('#productid').val(data.productid);
+            $('#productname').val(dataproductname);
+            $('#costprice').val(data.costprice);
+            $('#sellingprice').val(data.sellingprice);
+            $('#buyingdatetime').val(data.buyingdatetime);
+            $('#sellingdatetime').val(data.sellingdatetime);
+        });
+    });
+    $('#update').click(function(){
+        product={};
+        product.productid=$('#productid').val();
+        product.productname=$('#productname').val();
+        product.costprice=$('#costprice').val();
+        product.sellingprice=$('#sellingprice').val();
+        product.buyingdatetime=$('#buyingdatetime').val();
+        product.sellingdatetime=$('#sellingdatetime').val();
+        $.POST('/changeproduct',{oproduct:product},function(){
+        alert(result);
+        getproduct();
+        
+    });
+    });

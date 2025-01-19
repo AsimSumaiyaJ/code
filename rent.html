@@ -1,0 +1,118 @@
+<table>
+    <tr>
+       <td><label>moviename</label></td>
+       <td><input type="text"/></td>
+    </tr>
+    <tr>
+       <td><label>copy</label></td>
+       <td><input type="number"/></td>
+     </tr>
+     <tr>
+        <td><label>customerid</label></td>
+        <td><input type="number"/></td>
+     </tr>
+     <tr>
+        <td><label>rentdatetime</label></td>
+        <td><input type="date"/></td>
+      </tr>
+      <tr>
+        <td><label>returndatetime</label></td>
+        <td><input type="date"/></td>
+      </tr>
+</table>
+<style>
+    #single{
+        th,td{
+            width:50%;
+            border:1px solid;
+        }
+        #button
+        {
+            width:99%;
+            border-collapse: collapse;
+        }
+        #button td {
+            width:33%;
+            border:1px solid;
+
+        }
+        #rent multiple{
+            width:99%
+            border-collapse-collapse;
+        }
+        #rent multiple td{
+            width:14%;
+            border:1px solid;
+
+        }
+
+
+        }
+    
+</style>
+<script>
+    $('#create').click(funtion(){
+     $.POST('/addrent',{orent:rent},function(result){
+        
+     });
+
+    });
+    $('#insert').click(funtion(){
+        
+        rent={};
+        rent.moviename=$('#name').val();
+        rent.copy=$('#copy').val();
+        rent.customerid=$('#customerid').val();
+        rent.rentdatetime=$('#rentdatetime').val();
+        rent.returndatetime=$('#returndatetime').val();
+        $.POST('/addrent',{orent:rent},function(result){
+        alert(result)
+        getrent();
+       
+    });
+
+    });
+    $('#select').click(function(){
+            getrent();
+           
+        });
+        function getrent(){
+                $.get('/getrentcount',function(data){
+                    $.get('/getrent',function(data){
+                        s='';
+                        for(i=0;i<data.length;i++)
+                        {
+                        s+='<td>data[i].name</td>';
+                        s+='<td>data[i].copy</td>';
+                        s+='<td>data[i].customerid</td>';
+                        s+='<td>data[i].rentdatetime</td>';
+                        s+='<td>data[i].returndatetime</td>';
+                        }
+                        $('#multiple').append(s)
+                        
+                        
+                    })
+                });
+            }
+            $('#multiple').on('click','tr',function(){
+        $.get('/getrentid',{id:$(this).find('td:eq(0)').text()},function(data){
+            $('#name').val(data.name);
+            $('#copy').val(data.copy);
+            $('#customerid').val(data.customerid);
+            $('#rentdatetime').val(data.rentdatetime);
+            $('#returndatetime').val(data.returndatetime);
+             });
+    });
+    $('#update').click(function(){
+        rent={};
+        rent.moviename=$('#name').val();
+        rent.copy=$('#copy').val();
+        rent.customerid=$('#customerid').val();
+        rent.rentdatetime=$('#rentdatetime').val();
+        rent.returndatetime=$('#returndatetime').val();
+        $.POST('/changerent',{orent:rent},function(){
+        alert(result);
+        getrent();
+        
+    });
+    });

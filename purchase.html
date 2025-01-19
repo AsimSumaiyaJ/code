@@ -1,0 +1,102 @@
+<table>
+    <tr>
+       <td><label>productid</label></td>
+       <td><input type="number"/></td>
+    </tr>
+    <tr>
+       <td><label>quantity</label></td>
+       <td><input type="number"/></td>
+     </tr>
+     <tr>
+        <td><label>sellerid</label></td>
+        <td><input type="number"/></td>
+      </tr>
+</table>
+<style>
+    #single{
+        th,td{
+            width:50%;
+            border:1px solid;
+        }
+        #button
+        {
+            width:99%;
+            border-collapse: collapse;
+        }
+        #button td {
+            width:33%;
+            border:1px solid;
+
+        }
+        #purchase multiple{
+            width:99%
+            border-collapse-collapse;
+        }
+        #purchase multiple td{
+            width:14%;
+            border:1px solid;
+
+        }
+
+
+        }
+    
+</style>
+<script>
+    $('#create').click(funtion(){
+     $.POST('/addpurchase',{opurchase:purchase},function(result){
+        
+     });
+
+    });
+    $('#insert').click(funtion(){
+        
+        purchase={};
+        purchase.productid=$('#productid').val();
+        purchase.quantity=$('#quantity').val();
+        purchase.sellerid=$('#sellerid').val();
+        $.POST('/addpurchase',{opurchase:purchase},function(result){
+        alert(result)
+        getpurchase();
+       
+    });
+
+    });
+    $('#select').click(function(){
+            getpurchase();
+           
+        });
+        function getpurchase(){
+                $.get('/getpurchasecount',function(data){
+                    $.get('/getpurchase',function(data){
+                        s='';
+                        for(i=0;i<data.length;i++)
+                        {
+                        s+='<td>data[i].productid</td>';
+                        s+='<td>data[i].quantity</td>';
+                        s+='<td>data[i].sellerid</td>';
+                        }
+                        $('#multiple').append(s)
+                        
+                        
+                    })
+                });
+            }
+            $('#multiple').on('click','tr',function(){
+        $.get('/getpurchaseid',{id:$(this).find('td:eq(0)').text()},function(data){
+            $('#productid').val(data.productid);
+            $('#quantity').val(data.quantity);
+            $('#sellerid').val(data.sellerid);
+        });
+    });
+    $('#update').click(function(){
+        purchase={};
+        purchase.productid=$('#productid').val();
+        purchase.quantity=$('#quantity').val();
+        purchase.sellerid=$('#sellerid').val();
+        $.POST('/changepurchase',{opurchase:purchase},function(){
+        alert(result);
+        getpurchase();
+        
+    });
+    });

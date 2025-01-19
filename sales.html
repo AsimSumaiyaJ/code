@@ -1,0 +1,102 @@
+<table>
+    <tr>
+       <td><label>productid</label></td>
+       <td><input type="number"/></td>
+    </tr>
+    <tr>
+       <td><label>quantity</label></td>
+       <td><input type="number"/></td>
+     </tr>
+     <tr>
+        <td><label>customerid</label></td>
+        <td><input type="number"/></td>
+      </tr>
+</table>
+<style>
+    #single{
+        th,td{
+            width:50%;
+            border:1px solid;
+        }
+        #button
+        {
+            width:99%;
+            border-collapse: collapse;
+        }
+        #button td {
+            width:33%;
+            border:1px solid;
+
+        }
+        #sales multiple{
+            width:99%
+            border-collapse-collapse;
+        }
+        #sales multiple td{
+            width:14%;
+            border:1px solid;
+
+        }
+
+
+        }
+    
+</style>
+<script>
+    $('#create').click(funtion(){
+     $.POST('/addsales',{osales:sales},function(result){
+        
+     });
+
+    });
+    $('#insert').click(funtion(){
+        
+        sales={};
+        sales.productid=$('#productid').val();
+        sales.quantity=$('#quantity').val();
+        sales.sellerid=$('#customerid').val();
+        $.POST('/addsales',{osales:sales},function(result){
+        alert(result)
+        getsales();
+       
+    });
+
+    });
+    $('#select').click(function(){
+            getsales();
+           
+        });
+        function getsales(){
+                $.get('/getsalescount',function(data){
+                    $.get('/getsales',function(data){
+                        s='';
+                        for(i=0;i<data.length;i++)
+                        {
+                        s+='<td>data[i].productid</td>';
+                        s+='<td>data[i].quantity</td>';
+                        s+='<td>data[i].customerid</td>';
+                        }
+                        $('#multiple').append(s)
+                        
+                        
+                    })
+                });
+            }
+            $('#multiple').on('click','tr',function(){
+        $.get('/getsalesid',{id:$(this).find('td:eq(0)').text()},function(data){
+            $('#productid').val(data.productid);
+            $('#quantity').val(data.quantity);
+            $('#customerid').val(data.customerid);
+        });
+    });
+    $('#update').click(function(){
+        sales={};
+        sales.productid=$('#productid').val();
+        sales.quantity=$('#quantity').val();
+        sales.sellerid=$('#customerid').val();
+        $.POST('/changesales',{osales:sales},function(){
+        alert(result);
+        getsales();
+        
+    });
+    });

@@ -1,0 +1,102 @@
+<table>
+    <tr>
+       <td><label>name</label></td>
+       <td><input type="text"/></td>
+    </tr>
+    <tr>
+       <td><label>phonenumber</label></td>
+       <td><input type="number"/></td>
+     </tr>
+     <tr>
+        <td><label>address</label></td>
+        <td><input type="textarea"/></td>
+      </tr>
+</table>
+<style>
+    #single{
+        th,td{
+            width:50%;
+            border:1px solid;
+        }
+        #button
+        {
+            width:99%;
+            border-collapse: collapse;
+        }
+        #button td {
+            width:33%;
+            border:1px solid;
+
+        }
+        #customer1 multiple{
+            width:99%
+            border-collapse-collapse;
+        }
+        #customer1 multiple td{
+            width:14%;
+            border:1px solid;
+
+        }
+
+
+        }
+    
+</style>
+<script>
+    $('#create').click(funtion(){
+     $.POST('/addcustomer1',{ocustomer1:customer1},function(result){
+        
+     });
+
+    });
+    $('#insert').click(funtion(){
+        
+        customer1={};
+        customer1.name=$('#name').val();
+        customer1.copy=$('#phonenumber').val();
+        customer1.copy=$('#address').val();
+        $.POST('/addcustomer1',{ocustomer1:customer1},function(result){
+        alert(result)
+        getcustomer1();
+       
+    });
+
+    });
+    $('#select').click(function(){
+            getcustomer1();
+           
+        });
+        function getcustomer1(){
+                $.get('/getcustomer1count',function(data){
+                    $.get('/getcustomer1',function(data){
+                        s='';
+                        for(i=0;i<data1.length;i++)
+                        {
+                        s+='<td>data[i].name</td>';
+                        s+='<td>data[i].phonenumber</td>';
+                        s+='<td>data[i].address</td>';
+                        }
+                        $('#multiple').append(s)
+                        
+                        
+                    })
+                });
+            }
+            $('#multiple').on('click','tr',function(){
+        $.get('/getcustomer1id',{id:$(this).find('td:eq(0)').text()},function(data){
+            $('#name').val(data.name);
+            $('#phonenumber').val(data.phonenumber);
+            $('#address').val(data.address);
+        });
+    });
+    $('#update').click(function(){
+        customer1={};
+        customer1.name=$('#name').val();
+        customer1.copy=$('#phonenumber').val();
+        customer1.copy=$('#address').val();
+        $.POST('/changecustomer1',{ocustomer1:customer1},function(){
+        alert(result);
+        getcustomer1();
+        
+    });
+    });

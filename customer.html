@@ -1,0 +1,94 @@
+<table>
+    <tr>
+       <td><label>customername</label></td>
+       <td><input type="text"/></td>
+    </tr>
+    <tr>
+       <td><label>depositamt</label></td>
+       <td><input type="number"/></td>
+     </tr>
+</table>
+<style>
+    #single{
+        th,td{
+            width:50%;
+            border:1px solid;
+        }
+        #button
+        {
+            width:99%;
+            border-collapse: collapse;
+        }
+        #button td {
+            width:33%;
+            border:1px solid;
+
+        }
+        #customer multiple{
+            width:99%
+            border-collapse-collapse;
+        }
+        #customer multiple td{
+            width:14%;
+            border:1px solid;
+
+        }
+
+
+        }
+    
+</style>
+<script>
+    $('#create').click(funtion(){
+     $.POST('/addcustomer',{ocustomer:customer},function(result){
+        
+     });
+
+    });
+    $('#insert').click(funtion(){
+        
+        customer={};
+        customer.name=$('#customername').val();
+        customer.copy=$('#depositamt').val();
+        $.POST('/addcustomer',{ocustomer:customer},function(result){
+        alert(result)
+        getcustomer();
+       
+    });
+
+    });
+    $('#select').click(function(){
+            getcustomer();
+           
+        });
+        function getcustomer(){
+                $.get('/getcustomercount',function(data){
+                    $.get('/getcustomer',function(data){
+                        s='';
+                        for(i=0;i<data.length;i++)
+                        {
+                        s+='<td>data[i].customername</td>';
+                        s+='<td>data[i].depositamt</td>';
+                        }
+                        $('#multiple').append(s)
+                        
+                        
+                    })
+                });
+            }
+            $('#multiple').on('click','tr',function(){
+        $.get('/getcustomerid',{id:$(this).find('td:eq(0)').text()},function(data){
+            $('#customername').val(data.customername);
+            $('#depositamt').val(data.depositamt);
+        });
+    });
+    $('#update').click(function(){
+        customer={};
+        customer.name=$('#customername').val();
+        customer.copy=$('#depositamt').val();
+        $.POST('/changecustomer',{ocustomer:customer},function(){
+        alert(result);
+        getcustomer();
+        
+    });
+    });
