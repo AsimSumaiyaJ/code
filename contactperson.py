@@ -75,4 +75,4 @@ def removecontactperson():
     cn.close()
     return jsonify('')
 if __name__=='__main__':
-     app.run=('True')
+     app.run(debug=True)
