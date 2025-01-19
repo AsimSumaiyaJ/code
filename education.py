@@ -55,7 +55,7 @@ def geteducationid():
         id=request.get_json()
         cn= cn=sqlite3.connect('test.db')
         cu=cn.cursor
-        cn.execute('select course,schoolcollege,boarduniversity,startdate,enddate,marks,completed from education', where id=?)
+        cn.execute('select course,schoolcollege,boarduniversity,startdate,enddate,marks,completed from education', id)
         opersonal=cu.fetchall()
         cn.close()
         return jsonify('opersonal')
