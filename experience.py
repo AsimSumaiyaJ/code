@@ -52,7 +52,7 @@ def getexperienceid():
         id=request.get_json()
         cn= cn=sqlite3.connect('test.db')
         cu=cn.cursor
-        cn.execute('select company,tecnologies,startdate,enddate from experience' where id=?)
+        cn.execute('select company,tecnologies,startdate,enddate from experience' ,where id=?)
         opersonal=cu.fetchall()
         cn.close()
         return jsonify('opersonal')
