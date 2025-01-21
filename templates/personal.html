@@ -56,16 +56,27 @@
         
     }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
+    alert();
+    $.ajax({
+        type:"POST",
+        url:"/createpersonal",
+        contentType:"application/json",
+        dataType:'json',
+        success:function(result){
+            alert(result);
+        }
+        });
     $('#create').click(function(){
      alert();
-     $.POST('/addpersonal',{opersonal:personal},function(result){
+     /* $.POST('/createpersonal',function(result){
      alert(result); 
      getpersonal();  
-     });
+     }); */ 
 
     });
-    $('#insert').click(function(){
+    /* $('#insert').click(function(){
         
         personal={};
         personal.name=$('#name').val();
@@ -146,7 +157,7 @@
         
     });
         }); 
-       
+        */
    
 </script>
 
