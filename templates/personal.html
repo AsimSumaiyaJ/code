@@ -58,8 +58,10 @@
 </style>
 <script>
     $('#create').click(funtion(){
+     alert();
      $.POST('/addpersonal',{opersonal:personal},function(result){
-        
+     alert(result);
+     getpersonal();  
      });
 
     });
@@ -73,7 +75,7 @@
         personal.emailaddress=$('#emailaddress').val();
         personal.address=$('#address').val();
         $.POST('/addpersonal',{opersonal:personal},function(result){
-        alert(result)
+        alert(result);
         getpersonal();
        
     });
