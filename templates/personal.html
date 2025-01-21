@@ -1,11 +1,11 @@
 <table>
  <tr>
     <td><label>name</label></td>
-    <td><input type="text"/></td>
+    <td><input type="text" id="name"/></td>
  </tr>
  <tr>
     <td><label>date of birth</label></td>
-    <td><input type="date"/></td>
+    <td><input type="date" id="dateofbirth"/></td>
   </tr>
   <tr>
     <td><label>gender</label></td>
@@ -13,17 +13,19 @@
  </tr>
  <tr>
     <td><label>phone number</label></td>
-    <td><input type="number" min="0" max="999999999"/></td>
+    <td><input type="number" min="0" max="999999999" id="phonenumber"/></td>
   </tr>
   <tr>
     <td><label>email address</label></td>
-    <td><input type="email"/></td>
+    <td><input type="email" id="email"/></td>
  </tr>
  <tr>
     <td><label>address</label></td>
-    <td><textarea cols="19" rows="4"></textarea></td>
+    <td><textarea cols="19" rows="4" id="address"></textarea></td>
   </tr>
 </table>
+<button id="create">create</button>
+
 <style>
     #single{
         th,td{
