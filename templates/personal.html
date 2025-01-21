@@ -37,7 +37,7 @@
             width:99%;
             border-collapse: collapse;
         }
-        #button text-decoration: {
+        #button td{
             width:33%;
             border:1px solid;
 
@@ -53,19 +53,19 @@
         }
 
 
-        }
+        
     }
 </style>
 <script>
-    $('#create').click(funtion(){
+    $('#create').click(function(){
      alert();
      $.POST('/addpersonal',{opersonal:personal},function(result){
-     alert(result);
+     alert(result); 
      getpersonal();  
      });
 
     });
-    $('#insert').click(funtion(){
+    $('#insert').click(function(){
         
         personal={};
         personal.name=$('#name').val();
@@ -145,7 +145,7 @@
         getpersonal();
         
     });
-        });
+        }); 
        
    
 </script>
